@@ -1,0 +1,32 @@
+// utilities.scss
+
+// Color Palette
+$white: #ffffff;
+$paper: #1e293b;
+$primary: #4ade80;
+$muted: #94a3b8;
+
+// Text Colors
+.text-white {
+  color: $white !important;
+}
+.text-muted {
+  color: $muted !important;
+}
+
+// Backgrounds
+.bg-paper {
+  background-color: $paper !important;
+}
+.bg-primary {
+  background-color: $primary !important;
+}
+
+// Typography
+.text-xl {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.text-base {
+  font-size: 1rem;
+}
