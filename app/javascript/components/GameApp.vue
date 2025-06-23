@@ -1,8 +1,8 @@
 <template>
   <div class="p-4 max-w-xl mx-auto">
     <div v-if="!started">
-      <input v-model="artist" placeholder="Enter artist" class="input" />
-      <button @click="startGame" class="button">Start Game</button>
+      <input v-model="artist" placeholder="Enter artist name" />
+      <button @click="startGame">Start Game</button>
     </div>
     <div v-else>
       <h2>Guess Top 10 Songs for {{ artist }}</h2>
@@ -36,29 +36,49 @@
 
   async function startGame() {
     const res = await fetch(
-      `/api/songs?artist=${encodeURIComponent(artist.value)}`
+      `/api/songs?artist=${encodeURIComponent(artist.value)}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
     );
-    songs.value = await res.json();
-    results.value = [];
-    correctGuesses.value = [];
-    started.value = true;
+    const data = await res.json();
+
+    if (Array.isArray(data)) {
+      songs.value = data;
+      results.value = [];
+      correctGuesses.value = [];
+      started.value = true;
+    } else {
+      alert(data.error || "Something went wrong.");
+    }
+  }
+
+  function normalize(str) {
+    return str
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "") // strip punctuation
+      .trim();
   }
 
   function submitGuess() {
+    if (!Array.isArray(songs.value)) return;
+
+    const normalizedGuess = normalize(guess.value);
     const match = songs.value.find(
-      (song) => song.title.toLowerCase() === guess.value.toLowerCase()
+      (song) => normalize(song.title) === normalizedGuess
     );
+
     if (match) {
       results.value.push({ guess: guess.value, rank: match.rank });
-      if (
-        match.rank <= 10 &&
-        !correctGuesses.value.includes(guess.value.toLowerCase())
-      ) {
-        correctGuesses.value.push(guess.value.toLowerCase());
+      if (match.rank <= 10 && !correctGuesses.value.includes(normalizedGuess)) {
+        correctGuesses.value.push(normalizedGuess);
       }
     } else {
       results.value.push({ guess: guess.value, rank: null });
     }
+
     guess.value = "";
   }
 </script>
