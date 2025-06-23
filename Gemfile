@@ -66,3 +66,5 @@ gem "vite_rails", "~> 3.0"
 
 gem "httparty"
 gem "nokogiri"
+
+gem "dotenv-rails", "~> 3.1"
