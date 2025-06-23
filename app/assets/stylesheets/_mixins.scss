@@ -1,0 +1,202 @@
+@use "variables" as *;
+@use "sass:map";
+
+// Sass map of breakpoints here
+$breakpoints: (
+  xs: null,
+  sm: 640px,
+  md: 992px,
+  lg: 1280px
+);
+
+// Media Query mixin
+// -------------------------
+// returns the apropriate media query
+// for the given breakpoint name
+@mixin media-query($breakpoint) {
+  @media (min-width: #{map.get($breakpoints, $breakpoint)}) {
+    @content;
+  }
+}
+
+// nest content inside breakpoint prefix classes
+// in the apropriate media query block
+@mixin generate-breakpoint-prefixes {
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    // We don't need a prefix for xs
+    @if $breakpoint-value {
+      $breakpoint-prefix: "#{$breakpoint-name}\\:";
+
+      @include media-query($breakpoint-name) {
+        .#{$breakpoint-prefix} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+// Merge any number of maps together
+@function map-collect($maps...) {
+  $collection: ();
+
+  @each $map in $maps {
+    $collection: map.merge($collection, $map);
+  }
+
+  @return $collection;
+}
+
+@mixin typeset-1 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 48px;
+  line-height: 1.3;
+  text-transform: none;
+
+  em {
+    text-transform: uppercase;
+    font-style: normal;
+  }
+}
+@mixin typeset-2 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.2;
+  text-transform: none;
+
+  em {
+    text-transform: uppercase;
+    font-style: normal;
+  }
+}
+@mixin typeset-3 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.2;
+  text-transform: none;
+
+  em {
+    text-transform: uppercase;
+    font-style: normal;
+  }
+}
+@mixin typeset-4 {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+@mixin typeset-5 {
+  font-family: $font-family-sans-serif;
+  font-size: 24px;
+  line-height: 1.3;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-6 {
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-7 {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+
+  strong {
+    font-weight: bold;
+  }
+}
+@mixin typeset-8 {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  line-height: 1.666666667;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-9 {
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-10 {
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-11 {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  line-height: 1.666666667;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@mixin typeset-12 {
+  font-family: $font-family-sans-serif;
+  font-size: 12px;
+  line-height: 1.666666667;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+@mixin fold-typeset-1 {
+  font-family: $font-family-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 62px;
+  letter-spacing: 0px;
+}
+@mixin fold-typeset-2 {
+  font-family: $font-family-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+}
+@mixin fold-typeset-3 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 40px;
+}
+@mixin fold-typeset-4 {
+  font-family: $font-family-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 42px;
+  line-height: 54.6px;
+}

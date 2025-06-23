@@ -1,0 +1,37 @@
+@use "../mixins" as *;
+
+.overflow-hidden { overflow: hidden; }
+.overflow-visible { overflow: visible; }
+.overflow-auto { overflow: auto; }
+.overflow-x-hidden { overflow-x: hidden }
+.overflow-y-hidden { overflow-y: hidden }
+.overflow-x-auto { overflow-x: auto }
+.overflow-y-auto { overflow-y: auto }
+.overflow-x-unset { overflow-x: unset }
+.overflow-y-unset { overflow-y: unset }
+
+// …at different breakpoints
+@include generate-breakpoint-prefixes {
+  &overflow-hidden { overflow: hidden; }
+  &overflow-visible { overflow: visible; }
+  &overflow-auto { overflow: auto; }
+  &overflow-x-hidden { overflow-x: hidden }
+  &overflow-y-hidden { overflow-y: hidden }
+  &overflow-x-auto { overflow-x: auto }
+  &overflow-y-auto { overflow-y: auto }
+  &overflow-x-visible { overflow-x: visible; }
+  &overflow-x-unset { overflow-x: unset }
+  &overflow-y-unset { overflow-y: unset }
+}
+
+// hiding scrollbars
+.hide-scrollbar {
+  /* Hide scrollbar */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  /* for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

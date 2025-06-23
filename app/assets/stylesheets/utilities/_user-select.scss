@@ -1,0 +1,9 @@
+@use "../mixins" as *;
+
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+
+@include generate-breakpoint-prefixes {
+  &select-none { user-select: none; }
+  &select-text { user-select: text; }
+}

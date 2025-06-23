@@ -1,0 +1,14 @@
+@use "../mixins" as *;
+
+.resize-both { resize: both; }
+.resize-horizontal { resize: horizontal; }
+.resize-vertical { resize: vertical; }
+.resize-none { resize: none; }
+
+// Generate classes for resize at each breakpoint
+@include generate-breakpoint-prefixes {
+  &resize-both { resize: both; }
+  &resize-horizontal { resize: horizontal; }
+  &resize-vertical { resize: vertical; }
+  &resize-none { resize: none; }
+}

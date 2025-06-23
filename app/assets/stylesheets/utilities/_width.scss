@@ -1,0 +1,48 @@
+@use "../mixins" as *;
+@use "../variables" as *;
+@use "sass:map";
+
+$width-specific: (
+  "auto": auto,
+  "fit-content" : fit-content,
+  screen: 100vw
+);
+
+$spacing-width: map-collect(
+  $spacing-percentages,
+  $spacing-scale,
+  $width-specific
+);
+
+// Width utility classes
+@each $step, $value in $spacing-width {
+  .w-#{$step} { width: $value; }
+}
+
+@include generate-breakpoint-prefixes {
+  @each $step, $value in $spacing-width {
+    &w-#{$step} { width: $value; }
+  }
+}
+
+// Min-width utility classes
+@each $step, $value in $spacing-width {
+  .min-w-#{$step} { min-width: $value; }
+}
+
+@include generate-breakpoint-prefixes {
+  @each $step, $value in $spacing-width {
+    &min-w-#{$step} { min-width: $value; }
+  }
+}
+
+// Max-width utility classes
+@each $step, $value in $spacing-width {
+  .max-w-#{$step} { max-width: $value; }
+}
+
+@include generate-breakpoint-prefixes {
+  @each $step, $value in $spacing-width {
+    &max-w-#{$step} { max-width: $value; }
+  }
+}

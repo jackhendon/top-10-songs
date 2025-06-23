@@ -1,0 +1,118 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Generate background colour utility classes
+@each $colour-name, $colour in $colours {
+  .bg-#{$colour-name} {
+    background-color: var(--#{$colour-name});
+  }
+}
+@each $colour-name, $colour in $colours {
+  $focus-prefix: "focus\\:bg-#{$colour-name}";
+
+  .#{$focus-prefix} {
+    &:focus {
+      background-color: var(--#{$colour-name});
+    }
+  }
+}
+@each $colour-name, $colour in $colours {
+  $hover-prefix: "hover\\:bg-#{$colour-name}";
+
+  .#{$hover-prefix} {
+    &:hover {
+      background-color: var(--#{$colour-name});
+    }
+  }
+}
+@each $colour-name, $colour in $colours {
+  $active-prefix: "active\\:bg-#{$colour-name}";
+
+  .#{$active-prefix} {
+    &:active {
+      background-color: var(--#{$colour-name});
+    }
+  }
+}
+
+// Generate text colour utility classes
+@each $colour-name, $colour in $colours {
+  .text-#{$colour-name} {
+    color: var(--#{$colour-name});
+  }
+}
+@each $colour-name, $colour in $colours {
+  $focus-prefix: "focus\\:text-#{$colour-name}";
+
+  .#{$focus-prefix} {
+    &:focus {
+      color: var(--#{$colour-name});
+    }
+  }
+}
+@each $colour-name, $colour in $colours {
+  $hover-prefix: "hover\\:text-#{$colour-name}";
+
+  .#{$hover-prefix} {
+    &:hover {
+      color: var(--#{$colour-name});
+    }
+  }
+}
+
+@include generate-breakpoint-prefixes {
+  @each $colour-name, $colour in $colours {
+    &bg-#{$colour-name} {
+      background-color: var(--#{$colour-name});
+    }
+  }
+  @each $colour-name, $colour in $colours {
+    $focus-prefix: "focus\\:bg-#{$colour-name}";
+
+    &#{$focus-prefix} {
+      &:focus {
+        background-color: var(--#{$colour-name});
+      }
+    }
+  }
+  @each $colour-name, $colour in $colours {
+    $hover-prefix: "hover\\:bg-#{$colour-name}";
+
+    &#{$hover-prefix} {
+      &:hover {
+        background-color: var(--#{$colour-name});
+      }
+    }
+  }
+  @each $colour-name, $colour in $colours {
+    &text-#{$colour-name} {
+      color: var(--#{$colour-name});
+    }
+  }
+  @each $colour-name, $colour in $colours {
+    $focus-prefix: "focus\\:text-#{$colour-name}";
+
+    &#{$focus-prefix} {
+      &:focus {
+        color: var(--#{$colour-name});
+      }
+    }
+  }
+  @each $colour-name, $colour in $colours {
+    $hover-prefix: "hover\\:text-#{$colour-name}";
+
+    &#{$hover-prefix} {
+      &:hover {
+        color: var(--#{$colour-name});
+      }
+    }
+  }
+}
+
+.transition-colour {
+  transition: color 0.3s ease;
+}
+
+.transition-background {
+  transition: background-color 0.2s ease;
+}

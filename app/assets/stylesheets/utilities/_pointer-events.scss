@@ -1,0 +1,11 @@
+@use "../mixins" as *;
+
+// Pointer events utility classes
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+// …at different breakpoints
+@include generate-breakpoint-prefixes {
+  &pointer-events-none { pointer-events: none; }
+  &pointer-events-auto { pointer-events: auto; }
+}

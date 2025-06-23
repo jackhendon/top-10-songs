@@ -1,0 +1,41 @@
+@use "../variables" as *;
+
+.snap-none {
+  scroll-snap-type: none;
+}
+
+.snap-x {
+  scroll-snap-type: x var(--scroll-snap-strictness);
+}
+
+.snap-y {
+  scroll-snap-type: y var(--scroll-snap-strictness);
+}
+
+.snap-both {
+  scroll-snap-type: both var(--scroll-snap-strictness);
+}
+
+.snap-mandatory {
+  --scroll-snap-strictness: mandatory;
+}
+
+.snap-proximity {
+  --scroll-snap-strictness: proximity;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-end {
+  scroll-snap-align: end;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
+.snap-align-none {
+  scroll-snap-align: none;
+}

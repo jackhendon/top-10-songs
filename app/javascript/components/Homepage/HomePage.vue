@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen bg-paper p-6 flex flex-col items-center justify-center"
+    class="bg-dark flex flex-col text-main align-center justify-center items-center"
   >
     <TitleHeader />
     <ArtistSearch @submit="handleArtistSelect" />
