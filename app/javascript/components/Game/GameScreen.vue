@@ -25,26 +25,34 @@
 </template>
 
 <script setup>
-  import { ref } from "vue";
+  import { ref, onMounted } from "vue";
 
-  const artist = ref("");
+  const props = defineProps({
+    artist: String,
+  });
+
+  const artist = ref(props.artist || "");
   const guess = ref("");
   const results = ref([]);
   const correctGuesses = ref([]);
   const songs = ref([]);
   const started = ref(false);
 
+  onMounted(() => {
+    if (artist.value) {
+      startGame();
+    }
+  });
+
   async function startGame() {
     const res = await fetch(
       `/api/songs?artist=${encodeURIComponent(artist.value)}`,
       {
-        headers: {
-          Accept: "application/json",
-        },
+        headers: { Accept: "application/json" },
       }
     );
-    const data = await res.json();
 
+    const data = await res.json();
     if (Array.isArray(data)) {
       songs.value = data;
       results.value = [];
@@ -58,7 +66,7 @@
   function normalize(str) {
     return str
       .toLowerCase()
-      .replace(/[^a-z0-9]/g, "") // strip punctuation
+      .replace(/[^a-z0-9]/g, "")
       .trim();
   }
 
