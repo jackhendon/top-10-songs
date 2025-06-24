@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-dark flex flex-col text-main align-center justify-center items-center"
+    class="bg-forest full flex flex-col text-main align-center justify-center items-center"
   >
     <TitleHeader />
     <ArtistSearch @submit="handleArtistSelect" />
