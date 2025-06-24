@@ -2,11 +2,13 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "sass": "^1.89.2",
     "vite": "^5.4.19",
     "vite-plugin-ruby": "^5.1.1"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.4",
-    "vue": "^3.5.17"
+    "vue": "^3.5.17",
+    "vue-router": "4"
   }
 }
