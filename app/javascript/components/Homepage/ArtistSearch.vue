@@ -1,17 +1,12 @@
 <template>
-  <div class="flex justify-center gap-2 mb-6">
+  <div class="search-bar">
     <input
       v-model="artistName"
       type="text"
       placeholder="Enter artist"
-      class="px-4 py-2 rounded bg-gray-800 text-white border border-gray-600"
+      class="search-input"
     />
-    <button
-      @click="startGame"
-      class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded"
-    >
-      Start Game
-    </button>
+    <button @click="startGame" class="search-button">Start Game</button>
   </div>
 </template>
 
@@ -24,3 +19,35 @@
     emit("submit", artistName.value);
   }
 </script>
+
+<style>
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    background-color: #1f2937;
+    color: #ffffff;
+    border: 1px solid #4b5563;
+  }
+
+  .search-button {
+    background-color: #22c55e;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .search-button:hover {
+    background-color: #16a34a;
+  }
+</style>

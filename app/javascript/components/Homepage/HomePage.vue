@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-forest full flex flex-col text-main align-center justify-center items-center"
-  >
+  <div class="homepage">
     <TitleHeader />
     <ArtistSearch @submit="handleArtistSelect" />
     <SuggestedArtistCards @submit="handleArtistSelect" />
@@ -20,3 +18,16 @@
     router.push(`/game/${encodeURIComponent(name)}`);
   }
 </script>
+
+<style>
+  .homepage {
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+</style>

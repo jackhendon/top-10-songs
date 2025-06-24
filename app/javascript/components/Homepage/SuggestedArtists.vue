@@ -1,12 +1,12 @@
 <template>
   <div>
-    <p class="text-center text-gray-400 mb-3">Or choose a suggested artist:</p>
-    <div class="flex flex-wrap justify-center gap-3">
+    <p class="suggestion-label">Or choose a suggested artist:</p>
+    <div class="suggestion-list">
       <button
         v-for="name in suggestions"
         :key="name"
         @click="$emit('submit', name)"
-        class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+        class="suggestion-button"
       >
         {{ name }}
       </button>
@@ -22,3 +22,32 @@
     },
   });
 </script>
+
+<style>
+  .suggestion-label {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+
+  .suggestion-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .suggestion-button {
+    background-color: #1f2937;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .suggestion-button:hover {
+    background-color: #374151;
+  }
+</style>
