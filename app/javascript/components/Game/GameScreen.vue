@@ -10,6 +10,7 @@
         class="input"
         :disabled="revealed"
       />
+      <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
       <div class="button-row">
         <button @click="submitGuess" class="button" :disabled="revealed">
           Guess
@@ -43,7 +44,7 @@
           </tr>
 
           <tr
-            v-for="miss in misses"
+            v-for="miss in sortedMisses"
             :key="'miss-' + miss.title"
             class="miss-row"
           >
@@ -74,6 +75,8 @@
   const topTen = ref(Array(10).fill(null));
   const misses = ref([]);
   const streamsByRank = ref({});
+
+  const errorMessage = ref("");
 
   async function startGame() {
     const res = await fetch(
@@ -132,13 +135,10 @@
         });
       }
     } else {
-      if (!misses.value.some((m) => normalize(m.title) === normalizedGuess)) {
-        misses.value.push({
-          title: guess.value,
-          rank: null,
-          streams: "Song not found",
-        });
-      }
+      errorMessage.value = `No match found for "${guess.value}". Please try again.`;
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 3000);
     }
 
     guess.value = "";
@@ -181,6 +181,17 @@
 
   onMounted(() => {
     startGame();
+  });
+
+  import { computed } from "vue";
+
+  const sortedMisses = computed(() => {
+    return [...misses.value].sort((a, b) => {
+      if (a.rank && b.rank) return a.rank - b.rank;
+      if (a.rank) return -1;
+      if (b.rank) return 1;
+      return 0;
+    });
   });
 </script>
 
@@ -287,5 +298,11 @@
     font-size: 1.1rem;
     font-weight: bold;
     color: #4ade80;
+  }
+
+  .error-msg {
+    color: #f87171;
+    margin-top: 0.5rem;
+    text-align: center;
   }
 </style>
