@@ -133,7 +133,11 @@
       }
     } else {
       if (!misses.value.some((m) => normalize(m.title) === normalizedGuess)) {
-        misses.value.push({ title: guess.value, rank: null });
+        misses.value.push({
+          title: guess.value,
+          rank: null,
+          streams: "Song not found",
+        });
       }
     }
 
