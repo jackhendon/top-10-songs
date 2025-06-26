@@ -28,7 +28,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="n in 10" :key="n">
+          <tr
+            v-for="n in 10"
+            :key="n"
+            class="top-row"
+            :class="{ clickable: !topTen[n - 1] && !revealed }"
+            @click="revealSlot(n - 1)"
+          >
             <td>#{{ n }}</td>
             <td>{{ topTen[n - 1]?.title || "—" }}</td>
             <td>
@@ -153,6 +159,22 @@
     revealed.value = true;
   }
 
+  function revealSlot(index) {
+    if (topTen.value[index] || revealed.value) return;
+
+    const song = songs.value.find((s) => s.rank === index + 1);
+    if (song) {
+      topTen.value[index] = {
+        title: song.title,
+        streams: song.streams,
+      };
+    }
+
+    if (topTen.value.filter(Boolean).length === 10) {
+      revealed.value = true;
+    }
+  }
+
   onMounted(() => {
     startGame();
   });
@@ -241,6 +263,14 @@
   .song-table th {
     background-color: #1e293b;
     font-weight: 600;
+  }
+
+  .top-row.clickable {
+    cursor: pointer;
+  }
+
+  .top-row.clickable:hover {
+    background-color: #334155;
   }
 
   .miss-row {
