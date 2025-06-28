@@ -194,25 +194,6 @@
     text-align: center;
   }
 
-  .song-table {
-    width: 100%;
-    margin-top: 1.5rem;
-    border-collapse: collapse;
-    color: #f1f5f9;
-  }
-
-  .song-table th,
-  .song-table td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #334155;
-    text-align: left;
-  }
-
-  .song-table th {
-    background-color: #1e293b;
-    font-weight: 600;
-  }
-
   .top-row.clickable {
     cursor: pointer;
   }
