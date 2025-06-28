@@ -210,13 +210,15 @@
 
 <style scoped>
   .game-container {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
     background-color: #0f172a;
     color: #f1f5f9;
     padding: 2rem;
+    box-sizing: border-box;
+    overflow: auto;
   }
   .game-box {
     max-width: 480px;
