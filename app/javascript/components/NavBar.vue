@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar">
     <div class="navbar__logo">
-      <img :src="logoUrl" alt="SongGuesser Logo" class="navbar__logo-img" />
-
-      <span class="navbar__title">SongGuesser</span>
+      <a href="/" style="text-decoration: none; color: white; display: flex">
+        <img :src="logoUrl" alt="SongGuesser Logo" class="navbar__logo-img" />
+        <span class="navbar__title">SongGuesser</span>
+      </a>
     </div>
 
     <button class="navbar__signin" @click="onSignIn">Sign In</button>
