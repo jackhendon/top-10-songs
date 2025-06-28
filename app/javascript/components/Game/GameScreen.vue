@@ -193,11 +193,4 @@
     width: 100%;
     text-align: center;
   }
-
-  .win {
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #4ade80;
-  }
 </style>
