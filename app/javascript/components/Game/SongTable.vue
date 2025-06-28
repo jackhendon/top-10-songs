@@ -18,7 +18,6 @@
     width: 100%;
     margin-top: 1.5rem;
     border-collapse: collapse;
-    color: #f1f5f9;
   }
 
   .song-table th,

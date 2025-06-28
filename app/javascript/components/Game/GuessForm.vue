@@ -51,15 +51,14 @@
     border-radius: 0.375rem;
     border: 1px solid #4b5563;
     background-color: #1f2937;
-    color: #fff;
   }
 
   .button {
     padding: 0.5rem 1.25rem;
-    background-color: #22c55e;
+    background-color: #16a34a;
+    color: #fff;
     border: none;
     border-radius: 0.375rem;
-    color: #fff;
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 1rem;
@@ -73,11 +72,12 @@
   }
 
   .button-alt {
-    background-color: #64748b;
+    background-color: #dc2626;
+    color: #fff;
     padding: 0.5rem 1.25rem;
     border: none;
     border-radius: 0.375rem;
-    color: #fff;
+
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 1rem;

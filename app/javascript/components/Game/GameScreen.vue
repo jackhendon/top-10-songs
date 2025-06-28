@@ -214,8 +214,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #0f172a;
-    color: #f1f5f9;
     padding: 2rem;
     box-sizing: border-box;
     overflow: auto;

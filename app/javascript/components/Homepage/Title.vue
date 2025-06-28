@@ -14,7 +14,6 @@
   .title-heading {
     font-size: 2.25rem;
     font-weight: 700;
-    color: #ffffff;
   }
 
   .title-subtext {

@@ -32,13 +32,13 @@
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
     background-color: #1f2937;
-    color: #ffffff;
+    color: #fff;
     border: 1px solid #4b5563;
   }
 
   .search-button {
     background-color: #22c55e;
-    color: #ffffff;
+    color: #fff;
     font-weight: 700;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
