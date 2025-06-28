@@ -1,15 +1,15 @@
 <template>
   <div>
     <input
-      v-model="modelValue"
-      @keyup.enter="$emit('submit')"
+      v-model="inputValue"
+      @keyup.enter="onSubmit"
       class="input"
       :disabled="disabled"
       placeholder="Song title"
     />
     <p v-if="error" class="error-msg">{{ error }}</p>
     <div class="button-row">
-      <button @click="$emit('submit')" :disabled="disabled" class="button">
+      <button @click="onSubmit" :disabled="disabled" class="button">
         Guess
       </button>
       <button v-if="!disabled" @click="$emit('give-up')" class="button-alt">
@@ -18,19 +18,31 @@
     </div>
   </div>
 </template>
+
 <script setup>
-  import { toRefs } from "vue";
+  import { computed } from "vue";
+
   const props = defineProps({
-    modelValue: String,
+    modelValue: {
+      type: String,
+      default: "",
+    },
     error: String,
     disabled: Boolean,
   });
-  const emit = defineEmits(["submit", "give-up", "update:modelValue"]);
-  watch(
-    () => props.modelValue,
-    (val) => emit("update:modelValue", val)
-  );
+  const emit = defineEmits(["update:modelValue", "submit", "give-up"]);
+
+  // Create a local v-model proxy
+  const inputValue = computed({
+    get: () => props.modelValue,
+    set: (val) => emit("update:modelValue", val),
+  });
+
+  function onSubmit() {
+    emit("submit");
+  }
 </script>
+
 <style scoped>
   .input {
     width: 100%;

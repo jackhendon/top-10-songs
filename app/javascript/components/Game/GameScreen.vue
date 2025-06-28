@@ -4,9 +4,9 @@
       <GameHeader :artist="artist" />
 
       <GuessForm
-        v-model:guess="guess"
-        :disabled="revealed"
+        v-model="guess"
         :error="errorMessage"
+        :disabled="revealed"
         @submit="submitGuess"
         @give-up="giveUp"
       />
