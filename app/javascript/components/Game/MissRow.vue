@@ -1,16 +1,23 @@
 <template>
   <tr class="miss-row">
-    <td>{{ miss.rank ? `#${miss.rank}` : "—" }}</td>
-    <td>{{ miss.title }}</td>
-    <td>{{ miss.streams?.toLocaleString() || "—" }}</td>
+    <td class="col-rank">
+      {{ miss.rank ? `#${miss.rank}` : "—" }}
+    </td>
+    <td class="col-title">
+      {{ miss.title }}
+    </td>
+    <td class="col-streams">
+      {{ miss.streams?.toLocaleString() || "—" }}
+    </td>
   </tr>
 </template>
+
 <script setup>
   const props = defineProps({ miss: Object });
 </script>
 <style scoped>
-  .miss-row {
-    background-color: #1f2937;
+  .miss-row td {
     color: #94a3b8;
+    background: transparent;
   }
 </style>

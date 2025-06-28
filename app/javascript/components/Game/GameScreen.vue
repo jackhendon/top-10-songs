@@ -219,18 +219,17 @@
   }
 
   .game-card {
-    background-color: #1e293b; /* dark card bg */
-    border-radius: 0.75rem; /* rounded corners */
+    background-color: #1e293b;
+    border-radius: 0.75rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    padding: 1.5rem; /* inner spacing */
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     max-width: 600px;
     width: 100%;
-    text-align: left; /* for table alignment */
+    text-align: left;
   }
 
-  /* if you need to override the table’s header bg to transparent */
   .game-card .song-table th {
     background-color: transparent;
     color: #e2e8f0;

@@ -32,7 +32,6 @@
   });
   const emit = defineEmits(["update:modelValue", "submit", "give-up"]);
 
-  // Create a local v-model proxy
   const inputValue = computed({
     get: () => props.modelValue,
     set: (val) => emit("update:modelValue", val),
@@ -52,6 +51,7 @@
     border-radius: 0.375rem;
     border: 1px solid #4b5563;
     background-color: #1f2937;
+    color: #fff;
   }
 
   .button {

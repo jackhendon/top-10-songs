@@ -20,12 +20,6 @@
   }
 
   .song-table th,
-  .song-table td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #334155;
-    text-align: left;
-  }
-
   .song-table th {
     background-color: #1e293b;
     font-weight: 600;
