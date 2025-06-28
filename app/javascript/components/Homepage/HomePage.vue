@@ -21,13 +21,14 @@
 
 <style>
   .homepage {
-    min-height: 100vh;
+    flex: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
     color: #f1f5f9;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    box-sizing: border-box;
+    overflow: auto;
   }
 </style>

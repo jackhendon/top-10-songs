@@ -1,7 +1,6 @@
 <template>
   <nav class="navbar">
     <div class="navbar__logo">
-      <!-- Replace with your actual logo SVG or image -->
       <img :src="logoUrl" alt="SongGuesser Logo" class="navbar__logo-img" />
 
       <span class="navbar__title">SongGuesser</span>
