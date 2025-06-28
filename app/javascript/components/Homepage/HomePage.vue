@@ -22,7 +22,7 @@
 <style>
   .homepage {
     min-height: 100vh;
-    background-color: #0f172a;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
     color: #f1f5f9;
     display: flex;
     flex-direction: column;
