@@ -46,6 +46,7 @@
 <style scoped>
   .input {
     width: 100%;
+    box-sizing: border-box;
     padding: 0.5rem 1rem;
     margin-bottom: 1rem;
     border-radius: 0.375rem;

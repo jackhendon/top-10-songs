@@ -16,7 +16,6 @@
 <style scoped>
   .song-table {
     width: 100%;
-    margin-top: 1.5rem;
     border-collapse: collapse;
   }
 

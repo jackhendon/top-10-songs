@@ -1,6 +1,6 @@
 <template>
   <div class="game-container">
-    <div class="game-box">
+    <div class="game-card">
       <GameHeader :artist="artist" />
 
       <GuessForm
@@ -214,13 +214,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
     box-sizing: border-box;
     overflow: auto;
   }
-  .game-box {
-    max-width: 480px;
+
+  .game-card {
+    background-color: #1e293b; /* dark card bg */
+    border-radius: 0.75rem; /* rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 1.5rem; /* inner spacing */
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
     width: 100%;
-    text-align: center;
+    text-align: left; /* for table alignment */
+  }
+
+  /* if you need to override the table’s header bg to transparent */
+  .game-card .song-table th {
+    background-color: transparent;
+    color: #e2e8f0;
   }
 </style>
