@@ -194,19 +194,6 @@
     text-align: center;
   }
 
-  .top-row.clickable {
-    cursor: pointer;
-  }
-
-  .top-row.clickable:hover {
-    background-color: #334155;
-  }
-
-  .miss-row {
-    background-color: #1f2937;
-    color: #94a3b8;
-  }
-
   .win {
     margin-top: 1rem;
     font-size: 1.1rem;
