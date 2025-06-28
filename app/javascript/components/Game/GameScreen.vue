@@ -1,61 +1,36 @@
 <template>
   <div class="game-container">
     <div class="game-box">
-      <h2 class="heading">Guess Top 10 Songs for {{ artist }}</h2>
+      <GameHeader :artist="artist" />
 
-      <input
-        v-model="guess"
-        @keyup.enter="submitGuess"
-        placeholder="Song title"
-        class="input"
+      <GuessForm
+        v-model:guess="guess"
         :disabled="revealed"
+        :error="errorMessage"
+        @submit="submitGuess"
+        @give-up="giveUp"
       />
-      <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
-      <div class="button-row">
-        <button @click="submitGuess" class="button" :disabled="revealed">
-          Guess
-        </button>
-        <button @click="giveUp" class="button-alt" v-if="!revealed">
-          Give Up
-        </button>
-      </div>
 
-      <table class="song-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Song Title</th>
-            <th>Streams</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
+      <SongTable>
+        <template #body>
+          <SongRow
             v-for="n in 10"
             :key="n"
-            class="top-row"
-            :class="{ clickable: !topTen[n - 1] && !revealed }"
-            @click="revealSlot(n - 1)"
-          >
-            <td>#{{ n }}</td>
-            <td>{{ topTen[n - 1]?.title || "—" }}</td>
-            <td>
-              {{ topTen[n - 1]?.streams?.toLocaleString() || streamsByRank[n] }}
-            </td>
-          </tr>
-
-          <tr
+            :rank="n"
+            :song="topTen[n - 1]"
+            :streams="streamsByRank[n]"
+            :clickable="!topTen[n - 1] && !revealed"
+            @reveal="revealSlot(n - 1)"
+          />
+          <MissRow
             v-for="miss in sortedMisses"
-            :key="'miss-' + miss.title"
-            class="miss-row"
-          >
-            <td>{{ miss.rank ? `#${miss.rank}` : "—" }}</td>
-            <td>{{ miss.title }}</td>
-            <td>{{ miss.streams?.toLocaleString() || "—" }}</td>
-          </tr>
-        </tbody>
-      </table>
+            :key="miss.title"
+            :miss="miss"
+          />
+        </template>
+      </SongTable>
 
-      <p v-if="revealed" class="win">🎉 All top 10 songs revealed!</p>
+      <WinMessage v-if="revealed" />
     </div>
   </div>
 </template>
@@ -63,6 +38,13 @@
 <script setup>
   import { ref, onMounted } from "vue";
   import { useRoute } from "vue-router";
+
+  import GameHeader from "./GameHeader.vue";
+  import GuessForm from "./GuessForm.vue";
+  import SongTable from "./SongTable.vue";
+  import SongRow from "./SongRow.vue";
+  import MissRow from "./MissRow.vue";
+  import WinMessage from "./WinMessage.vue";
 
   const route = useRoute();
   const artist = ref(decodeURIComponent(route.params.artist));
@@ -253,12 +235,6 @@
 
   .button-alt:hover {
     background-color: #475569;
-  }
-
-  .heading {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
   }
 
   .song-table {
