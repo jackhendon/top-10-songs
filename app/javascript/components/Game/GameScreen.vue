@@ -36,8 +36,9 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, computed } from "vue";
   import { useRoute } from "vue-router";
+  import Fuse from "fuse.js";
 
   import GameHeader from "./GameHeader.vue";
   import GuessForm from "./GuessForm.vue";
@@ -57,74 +58,108 @@
   const topTen = ref(Array(10).fill(null));
   const misses = ref([]);
   const streamsByRank = ref({});
-
   const errorMessage = ref("");
+
+  // declare fuse and its options
+  let fuse;
+  const fuseOptions = {
+    keys: ["title"],
+    threshold: 0.1,
+    distance: 100,
+    ignoreLocation: true,
+    minMatchCharLength: 3,
+    includeScore: true,
+  };
 
   async function startGame() {
     const res = await fetch(
       `/api/songs?artist=${encodeURIComponent(artist.value)}`,
-      {
-        headers: { Accept: "application/json" },
-      }
+      { headers: { Accept: "application/json" } }
     );
     const data = await res.json();
 
-    if (Array.isArray(data)) {
-      songs.value = data;
-      topTen.value = Array(10).fill(null);
-      misses.value = [];
-      streamsByRank.value = {};
-
-      data.slice(0, 100).forEach((s) => {
-        streamsByRank.value[s.rank] = s.streams?.toLocaleString() || "—";
-      });
-
-      guess.value = "";
-      started.value = true;
-      revealed.value = false;
-    } else {
+    if (!Array.isArray(data)) {
       alert(data.error || "Something went wrong.");
+      return;
     }
+
+    // keep only the top 150 by rank
+    const limited = data.filter((s) => s.rank <= 150);
+
+    songs.value = limited;
+    topTen.value = Array(10).fill(null);
+    misses.value = [];
+    streamsByRank.value = {};
+
+    // build streams lookup
+    limited.forEach((s) => {
+      if (s.rank <= 150) {
+        streamsByRank.value[s.rank] = s.streams.toLocaleString();
+      }
+    });
+
+    // initialize Fuse on the truncated list
+    fuse = new Fuse(limited, fuseOptions);
+
+    guess.value = "";
+    started.value = true;
+    revealed.value = false;
   }
 
   function normalize(str) {
     return str
       .toLowerCase()
+      .replace(/\(.*?\)/g, "")
+      .replace(/[-–—].*$/, "")
       .replace(/[^a-z0-9]/g, "")
       .trim();
   }
 
   function submitGuess() {
-    const normalizedGuess = normalize(guess.value);
-    const match = songs.value.find(
-      (song) => normalize(song.title) === normalizedGuess
-    );
+    const raw = guess.value.trim();
+    if (raw.length < 3) {
+      errorMessage.value = "Please enter at least 3 characters.";
+      setTimeout(() => (errorMessage.value = ""), 2000);
+      return;
+    }
 
-    if (match && match.rank <= 10) {
-      const index = match.rank - 1;
-      if (!topTen.value[index]) {
-        topTen.value[index] = {
-          title: match.title,
-          streams: match.streams,
-        };
-      }
-    } else if (match) {
-      if (!misses.value.some((m) => normalize(m.title) === normalizedGuess)) {
-        misses.value.push({
-          title: match.title,
-          streams: match.streams,
-          rank: match.rank,
-        });
-      }
+    if (!fuse) {
+      console.warn("Fuse not ready yet");
+      return;
+    }
+
+    // get all matches and filter by score
+    const results = fuse.search(raw);
+    const goodMatches = results
+      .filter((r) => r.score <= 0.15)
+      .map((r) => r.item);
+
+    if (goodMatches.length === 0) {
+      errorMessage.value = `No close match for “${raw}”.`;
+      setTimeout(() => (errorMessage.value = ""), 3000);
     } else {
-      errorMessage.value = `No match found for "${guess.value}". Please try again.`;
-      setTimeout(() => {
-        errorMessage.value = "";
-      }, 3000);
+      goodMatches.forEach((match) => {
+        if (match.rank <= 10) {
+          const idx = match.rank - 1;
+          if (!topTen.value[idx]) {
+            topTen.value[idx] = {
+              title: match.title,
+              streams: match.streams,
+            };
+          }
+        } else {
+          if (!misses.value.find((m) => m.title === match.title)) {
+            misses.value.push({
+              title: match.title,
+              streams: match.streams,
+              rank: match.rank,
+            });
+          }
+        }
+      });
     }
 
     guess.value = "";
-
     if (topTen.value.filter(Boolean).length === 10) {
       revealed.value = true;
     }
@@ -147,7 +182,6 @@
 
   function revealSlot(index) {
     if (topTen.value[index] || revealed.value) return;
-
     const song = songs.value.find((s) => s.rank === index + 1);
     if (song) {
       topTen.value[index] = {
@@ -155,17 +189,10 @@
         streams: song.streams,
       };
     }
-
     if (topTen.value.filter(Boolean).length === 10) {
       revealed.value = true;
     }
   }
-
-  onMounted(() => {
-    startGame();
-  });
-
-  import { computed } from "vue";
 
   const sortedMisses = computed(() => {
     return [...misses.value].sort((a, b) => {
@@ -174,6 +201,10 @@
       if (b.rank) return 1;
       return 0;
     });
+  });
+
+  onMounted(() => {
+    startGame();
   });
 </script>
 
@@ -187,7 +218,6 @@
     color: #f1f5f9;
     padding: 2rem;
   }
-
   .game-box {
     max-width: 480px;
     width: 100%;
