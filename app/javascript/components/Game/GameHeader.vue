@@ -1,13 +1,18 @@
 <template>
-  <h2 class="heading">Guess Top 10 Songs for {{ artist }}</h2>
+  <h2 class="heading">{{ artist }}</h2>
+  <p class="copy">Guess their top 10 songs</p>
 </template>
 <script setup>
   const props = defineProps({ artist: String });
 </script>
 <style scoped>
   .heading {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+  }
+
+  .copy {
+    color: #9ca3af;
+    margin: 0px 0px 16px 0px;
   }
 </style>

@@ -12,6 +12,9 @@
         Guess
       </button>
     </div>
+    <p class="tip">
+      Tip: Spelling doesn't need to be exact, but try to be close!
+    </p>
     <p v-if="error" class="error-msg">{{ error }}</p>
   </div>
 </template>
@@ -55,15 +58,15 @@
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid #334155;
-    background-color: #1e293b;
-    color: #f1f5f9;
+    background-color: #374151;
+    color: #fff;
     font-size: 1rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .input:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #fff;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
   }
 
@@ -91,5 +94,10 @@
     color: #f87171;
     font-size: 0.875rem;
     text-align: center;
+  }
+
+  .tip {
+    color: #9ca3af;
+    font-size: 0.85rem;
   }
 </style>
