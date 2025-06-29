@@ -225,13 +225,8 @@
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     text-align: left;
-  }
-
-  .game-card .song-table th {
-    background-color: transparent;
-    color: #e2e8f0;
   }
 </style>

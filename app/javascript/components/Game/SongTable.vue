@@ -1,9 +1,10 @@
 <template>
+  <h3>Top 10 Songs</h3>
   <table class="song-table">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Song Title</th>
+        <th class="rank-column">#</th>
+        <th>Song</th>
         <th>Streams</th>
       </tr>
     </thead>
@@ -17,11 +18,16 @@
   .song-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 8px;
   }
 
-  .song-table th,
   .song-table th {
-    background-color: #1e293b;
+    background-color: #374151;
     font-weight: 600;
+    height: 40px;
+  }
+
+  .rank-column {
+    padding-left: 8px;
   }
 </style>

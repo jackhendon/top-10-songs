@@ -30,10 +30,11 @@
   });
 </script>
 
-<style scoped>
+<style>
   .song-row,
   .miss-row {
     transition: background-color 0.2s;
+    height: 40px;
   }
   .song-row.clickable {
     cursor: pointer;
@@ -43,12 +44,13 @@
   }
 
   .col-rank {
-    width: 5%;
+    width: 10%;
+    padding-left: 8px;
     color: #e2e8f0;
   }
 
   .col-title {
-    width: 75%;
+    width: 70%;
     color: #fff;
     font-weight: 500;
   }
