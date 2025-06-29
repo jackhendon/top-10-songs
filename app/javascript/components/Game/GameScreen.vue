@@ -106,7 +106,9 @@
     // build streams lookup
     limited.forEach((s) => {
       if (s.rank <= 150) {
-        streamsByRank.value[s.rank] = s.streams.toLocaleString();
+        streamsByRank.value[s.rank] = Number(
+          String(s.streams).replace(/,/g, "")
+        );
       }
     });
 
@@ -116,15 +118,6 @@
     guess.value = "";
     started.value = true;
     revealed.value = false;
-  }
-
-  function normalize(str) {
-    return str
-      .toLowerCase()
-      .replace(/\(.*?\)/g, "")
-      .replace(/[-–—].*$/, "")
-      .replace(/[^a-z0-9]/g, "")
-      .trim();
   }
 
   function submitGuess() {
@@ -156,14 +149,14 @@
           if (!topTen.value[idx]) {
             topTen.value[idx] = {
               title: match.title,
-              streams: match.streams,
+              streams: Number(String(match.streams).replace(/,/g, "")),
             };
           }
         } else {
           if (!misses.value.find((m) => m.title === match.title)) {
             misses.value.push({
               title: match.title,
-              streams: match.streams,
+              streams: Number(String(match.streams).replace(/,/g, "")),
               rank: match.rank,
             });
           }
@@ -184,7 +177,7 @@
         if (song) {
           topTen.value[i] = {
             title: song.title,
-            streams: song.streams,
+            streams: Number(String(song.streams).replace(/,/g, "")),
           };
         }
       }
@@ -198,7 +191,7 @@
     if (song) {
       topTen.value[index] = {
         title: song.title,
-        streams: song.streams,
+        streams: Number(String(song.streams).replace(/,/g, "")),
       };
     }
     if (topTen.value.filter(Boolean).length === 10) {

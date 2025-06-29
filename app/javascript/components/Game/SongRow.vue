@@ -16,12 +16,16 @@
     </td>
 
     <td class="col-streams">
-      {{ song?.streams?.toLocaleString() || streams }}
+    <td>{{ formatStreams(song?.streams ?? streams) }}</td>
     </td>
   </tr>
 </template>
 
 <script setup>
+  import { formatStreams } from '../../../helpers/format.js';
+
+
+
   const props = defineProps({
     rank: Number,
     song: Object,

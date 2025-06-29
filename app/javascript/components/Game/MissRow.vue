@@ -7,12 +7,14 @@
       {{ miss.title }}
     </td>
     <td class="col-streams">
-      {{ miss.streams?.toLocaleString() || "—" }}
+    <td>{{ formatStreams(miss.streams ?? streams) }}</td>
     </td>
   </tr>
 </template>
 
 <script setup>
+  import { formatStreams } from "../../../helpers/format.js";
+
   const props = defineProps({ miss: Object });
 </script>
 <style scoped>
