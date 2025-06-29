@@ -13,7 +13,8 @@
       </button>
     </div>
     <p class="tip">
-      Tip: Spelling doesn't need to be exact, but try to be close!
+      <span>💡 Tip:</span> Spelling doesn't need to be exact, but try to be
+      close!
     </p>
     <p v-if="error" class="error-msg">{{ error }}</p>
   </div>
@@ -50,7 +51,6 @@
     align-items: center;
     width: 100%;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
   }
 
   .input {
@@ -99,5 +99,6 @@
   .tip {
     color: #9ca3af;
     font-size: 0.85rem;
+    margin-bottom: 0;
   }
 </style>

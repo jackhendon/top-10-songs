@@ -11,6 +11,18 @@
         @give-up="giveUp"
       />
 
+      <div class="progress-meta">
+        <div class="progress-stats">
+          <span>Progress: {{ topTen.filter(Boolean).length }}/10 guessed</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div
+            class="progress-bar-fill"
+            :style="{ width: progressPercent + '%' }"
+          ></div>
+        </div>
+      </div>
+
       <SongTable>
         <template #body>
           <SongRow
@@ -206,6 +218,11 @@
   onMounted(() => {
     startGame();
   });
+
+  const progressPercent = computed(() => {
+    const guessed = topTen.value.filter(Boolean).length;
+    return Math.round((guessed / 10) * 100);
+  });
 </script>
 
 <style scoped>
@@ -228,5 +245,37 @@
     max-width: 700px;
     width: 100%;
     text-align: left;
+  }
+
+  .progress-meta {
+    margin: 1rem 0;
+    color: #94a3b8;
+    font-size: 0.875rem;
+  }
+
+  .progress-text span {
+    font-weight: 600;
+    margin-right: 0.25rem;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: #cbd5e1;
+  }
+
+  .progress-bar-bg {
+    width: 100%;
+    height: 0.5rem;
+    background-color: #334155;
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background-color: #0ea5e9;
+    transition: width 0.3s ease-in-out;
   }
 </style>
