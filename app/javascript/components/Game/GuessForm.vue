@@ -1,21 +1,18 @@
 <template>
-  <div>
-    <input
-      v-model="inputValue"
-      @keyup.enter="onSubmit"
-      class="input"
-      :disabled="disabled"
-      placeholder="Song title"
-    />
-    <p v-if="error" class="error-msg">{{ error }}</p>
-    <div class="button-row">
+  <div class="guess-form">
+    <div class="input-group">
+      <input
+        v-model="inputValue"
+        @keyup.enter="onSubmit"
+        class="input"
+        :disabled="disabled"
+        placeholder="Enter song name..."
+      />
       <button @click="onSubmit" :disabled="disabled" class="button">
         Guess
       </button>
-      <button v-if="!disabled" @click="$emit('give-up')" class="button-alt">
-        Give Up
-      </button>
     </div>
+    <p v-if="error" class="error-msg">{{ error }}</p>
   </div>
 </template>
 
@@ -23,14 +20,12 @@
   import { computed } from "vue";
 
   const props = defineProps({
-    modelValue: {
-      type: String,
-      default: "",
-    },
+    modelValue: { type: String, default: "" },
     error: String,
     disabled: Boolean,
   });
-  const emit = defineEmits(["update:modelValue", "submit", "give-up"]);
+
+  const emit = defineEmits(["update:modelValue", "submit"]);
 
   const inputValue = computed({
     get: () => props.modelValue,
@@ -43,54 +38,58 @@
 </script>
 
 <style scoped>
-  .input {
+  .guess-form {
     width: 100%;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0.375rem;
-    border: 1px solid #4b5563;
-    background-color: #1f2937;
-    color: #fff;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #334155;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  .input::placeholder {
+    color: #64748b;
   }
 
   .button {
-    padding: 0.5rem 1.25rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 0.5rem;
+    border: none;
     background-color: #16a34a;
     color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    font-weight: 600;
     cursor: pointer;
-    margin-bottom: 1rem;
+    transition: background-color 0.2s ease;
   }
 
-  .button-row {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .button-alt {
-    background-color: #dc2626;
-    color: #fff;
-    padding: 0.5rem 1.25rem;
-    border: none;
-    border-radius: 0.375rem;
-
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
-
-  .button-alt:hover {
-    background-color: #475569;
+  .button:hover {
+    background-color: #16a34ada;
   }
 
   .error-msg {
     color: #f87171;
-    margin-top: 0.5rem;
+    font-size: 0.875rem;
     text-align: center;
   }
 </style>
